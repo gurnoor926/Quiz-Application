@@ -15,6 +15,7 @@ public class Login extends JFrame {
         JPanel panel = new JPanel();
         contentPane.setLayout(null);
         setContentPane(contentPane);
+        ImageIcon icon = new ImageIcon("../images/APP_icon.png");
         SpringLayout Layout = new SpringLayout();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         JLabel Login = new JLabel("Login");
@@ -70,6 +71,7 @@ public class Login extends JFrame {
         Layout.putConstraint(SpringLayout.NORTH,loginButton,55,SpringLayout.SOUTH,passwordField);
         Layout.putConstraint(SpringLayout.WEST,loginButton,160,SpringLayout.WEST,panel);
         contentPane.add(panel);
+        setIconImage(icon.getImage());
         setSize(2400,1000);
         setLayout(null);
         setVisible(true);
