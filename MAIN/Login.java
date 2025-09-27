@@ -4,7 +4,7 @@ public class Login extends JFrame {
     String Name;
     String Password;
     Login(){
-        setTitle("Login");
+        setTitle("QUIZ APPLICATION");
         JPanel contentPane = new JPanel(){
             protected void paintComponent(Graphics g){
                 super.paintComponent(g);

@@ -8,6 +8,7 @@ public class MainScreen extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         title.setFont(new Font("Times New Roman", Font.BOLD, 36));
         subTitle.setFont(new Font("Arial",Font.BOLD,22));
+        ImageIcon icon = new ImageIcon("../images/APP_icon.png");
         SpringLayout Layout = new SpringLayout();
         //Labels Layout
         //title
@@ -20,6 +21,8 @@ public class MainScreen extends JFrame {
         setContentPane(contentPane);
         add(title);
         add(subTitle);
+        setTitle("QUIZ APPLICATION");
+        setIconImage(icon.getImage());
         setSize(2400, 1000);
         setVisible(true);
 
