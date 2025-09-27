@@ -8,7 +8,7 @@ public class Login extends JFrame {
         JPanel contentPane = new JPanel(){
             protected void paintComponent(Graphics g){
                 super.paintComponent(g);
-                Image bg = new ImageIcon("./images/login_bg.jpg").getImage();
+                Image bg = new ImageIcon("../images/login_bg.jpg").getImage();
                 g.drawImage(bg, 0, 0, getWidth(), getHeight(), this);
             }
         };
