@@ -29,8 +29,10 @@ public class quizScreen extends JFrame {
         setSize(2400, 1000);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         JPanel panel = new JPanel();
-        panel.setBounds(690,100,400,300);
+        panel.setBounds(500,100,600,300);
         panel.setLayout(layout);
+        questionLabel.setFont(new Font("Times New Roman",Font.BOLD,36));
+        panel.setBackground(Color.BLUE);
 
         panel.add(questionLabel);
         panel.add(opt1);
@@ -61,22 +63,22 @@ public class quizScreen extends JFrame {
         //lay out
         //question
         layout.putConstraint(SpringLayout.NORTH, questionLabel, 20, SpringLayout.NORTH, panel);
-        layout.putConstraint(SpringLayout.WEST, questionLabel, 30, SpringLayout.WEST, panel);
+        layout.putConstraint(SpringLayout.WEST, questionLabel, 15, SpringLayout.WEST, panel);
         //options
         //opt1
-        layout.putConstraint(SpringLayout.WEST, opt1 , 20, SpringLayout.WEST, panel);
+        layout.putConstraint(SpringLayout.WEST, opt1 , 180, SpringLayout.WEST, panel);
         layout.putConstraint(SpringLayout.NORTH, opt1 , 20, SpringLayout.SOUTH, questionLabel);
         //opt2
         layout.putConstraint(SpringLayout.WEST, opt2 , 20, SpringLayout.EAST,opt1 );
         layout.putConstraint(SpringLayout.NORTH, opt2 , 20, SpringLayout.SOUTH, questionLabel);
         //opt3
-        layout.putConstraint(SpringLayout.WEST, opt3 , 20, SpringLayout.WEST,panel );
+        layout.putConstraint(SpringLayout.WEST, opt3 , 180, SpringLayout.WEST,panel );
         layout.putConstraint(SpringLayout.NORTH, opt3 , 20, SpringLayout.SOUTH, opt1);
         //opt4
         layout.putConstraint(SpringLayout.WEST, opt4 , 20, SpringLayout.EAST,opt3 );
         layout.putConstraint(SpringLayout.NORTH, opt4 , 20, SpringLayout.SOUTH, opt2);
         //next button
-        layout.putConstraint(SpringLayout.WEST , nextButton , 35, SpringLayout.WEST,panel );
+        layout.putConstraint(SpringLayout.WEST , nextButton , 250, SpringLayout.WEST,panel );
         layout.putConstraint(SpringLayout.NORTH, nextButton , 35, SpringLayout.SOUTH, opt3);
 
         add(panel);
