@@ -9,6 +9,12 @@ public class MainScreen extends JFrame {
         title.setFont(new Font("Times New Roman", Font.BOLD, 36));
         subTitle.setFont(new Font("Arial",Font.BOLD,22));
         ImageIcon icon = new ImageIcon("../images/APP_icon.png");
+        JButton playQuiz = new JButton("Play Quiz");
+        playQuiz.setPreferredSize(new Dimension(100,60));
+        playQuiz.addActionListener(e->{
+            new quizScreen();
+
+        });
         SpringLayout Layout = new SpringLayout();
         //Labels Layout
         //title
@@ -17,8 +23,12 @@ public class MainScreen extends JFrame {
         //sub title
         Layout.putConstraint(SpringLayout.NORTH, subTitle, 15, SpringLayout.SOUTH, title);
         Layout.putConstraint(SpringLayout.WEST, subTitle, 690, SpringLayout.WEST, contentPane);
+        //play button
+        Layout.putConstraint(SpringLayout.NORTH, playQuiz, 80, SpringLayout.SOUTH, subTitle);
+        Layout.putConstraint(SpringLayout.WEST, playQuiz, 690, SpringLayout.WEST, contentPane);
         contentPane.setLayout(Layout);
         setContentPane(contentPane);
+        contentPane.add(playQuiz);
         add(title);
         add(subTitle);
         setTitle("QUIZ APPLICATION");
