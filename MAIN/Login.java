@@ -1,8 +1,16 @@
 import javax.swing.*;
 import java.awt.*;
+import java.sql.*;
 public class Login extends JFrame {
     String Name;
     String Password;
+    int id;
+    String url = "jdbc:postgresql://localhost:5432/quizDb";
+    String user = "postgres";
+    String pass = "Manak6142";
+    Connection con;
+    Statement stmt;
+    ResultSet rs;
     Login(){
         setTitle("QUIZ APPLICATION");
         JPanel contentPane = new JPanel(){
@@ -33,14 +41,27 @@ public class Login extends JFrame {
         loginButton.setBackground(Color.decode("#5ECC0A"));
         loginButton.addActionListener(e->{
             String UserName = nameField.getText();
-            String Password = String.valueOf(passwordField.getText());
-            if(UserName.equals("admin") && Password.equals("123456")){
-                new MainScreen(UserName);
+            String Password = String.valueOf(passwordField.getPassword());
+            try{
+                Class.forName("org.postgresql.Driver");
+                con = DriverManager.getConnection(url,user,pass);
+                String sql = "SELECT * FROM users WHERE username=? AND password=?";
+                PreparedStatement pstmt = con.prepareStatement(sql);
+                pstmt.setString(1, UserName);
+                pstmt.setString(2, Password);
+                rs = pstmt.executeQuery();
+                if(rs.next()){
+                    id = rs.getInt("id");
+                    new MainScreen(UserName,id);
+                    this.dispose();
+                }
+                else{
+                    JOptionPane.showMessageDialog(null,"Wrong Username or password");
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
             }
-            else{
-                JOptionPane.showMessageDialog(null,"Wrong Username or password");
-            }
-            this.dispose();
+
         });
         panel.setBounds(600,200,400,300);
         panel.setBackground(Color.decode("#8DABBA"));

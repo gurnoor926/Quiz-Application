@@ -1,9 +1,9 @@
 import javax.swing.*;
 import java.awt.*;
 public class MainScreen extends JFrame {
-    public MainScreen(String UserName) {
+    public MainScreen(String UserName, int id) {
         JPanel contentPane = new JPanel();
-        JLabel title = new JLabel("Welcome " + UserName);
+        JLabel title = new JLabel("Welcome " + UserName+" "+id);
         JLabel subTitle = new JLabel("Let's Paly a Quiz");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         title.setFont(new Font("Times New Roman", Font.BOLD, 36));
