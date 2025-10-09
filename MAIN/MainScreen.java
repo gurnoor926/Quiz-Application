@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 public class MainScreen extends JFrame {
+    private String quizType;
     public MainScreen(String UserName, int id) {
         JPanel contentPane = new JPanel();
         JLabel title = new JLabel("Welcome " + UserName+" "+id);
@@ -9,10 +10,11 @@ public class MainScreen extends JFrame {
         title.setFont(new Font("Times New Roman", Font.BOLD, 36));
         subTitle.setFont(new Font("Arial",Font.BOLD,22));
         ImageIcon icon = new ImageIcon("../images/APP_icon.png");
-        JButton playQuiz = new JButton("Play Quiz");
-        playQuiz.setPreferredSize(new Dimension(100,60));
-        playQuiz.addActionListener(e->{
-            new quizScreen();
+        JButton GeographyBtn = new JButton("GEOGRAPHY QUIZ");
+        GeographyBtn.setPreferredSize(new Dimension(100,60));
+        GeographyBtn.addActionListener(e->{
+            quizType = "geography";
+            new quizScreen(quizType);
 
         });
         SpringLayout Layout = new SpringLayout();
@@ -24,11 +26,11 @@ public class MainScreen extends JFrame {
         Layout.putConstraint(SpringLayout.NORTH, subTitle, 15, SpringLayout.SOUTH, title);
         Layout.putConstraint(SpringLayout.WEST, subTitle, 690, SpringLayout.WEST, contentPane);
         //play button
-        Layout.putConstraint(SpringLayout.NORTH, playQuiz, 80, SpringLayout.SOUTH, subTitle);
-        Layout.putConstraint(SpringLayout.WEST, playQuiz, 690, SpringLayout.WEST, contentPane);
+        Layout.putConstraint(SpringLayout.NORTH, GeographyBtn, 80, SpringLayout.SOUTH, subTitle);
+        Layout.putConstraint(SpringLayout.WEST, GeographyBtn, 690, SpringLayout.WEST, contentPane);
         contentPane.setLayout(Layout);
         setContentPane(contentPane);
-        contentPane.add(playQuiz);
+        contentPane.add(GeographyBtn);
         add(title);
         add(subTitle);
         setTitle("QUIZ APPLICATION");

@@ -53,6 +53,7 @@ public class Login extends JFrame {
                 if(rs.next()){
                     id = rs.getInt("id");
                     new MainScreen(UserName,id);
+                    con.close();
                     this.dispose();
                 }
                 else{
