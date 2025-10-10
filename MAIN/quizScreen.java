@@ -22,6 +22,7 @@ public class quizScreen extends JFrame {
     SpringLayout layout = new SpringLayout();
     ButtonGroup group = new ButtonGroup();
     JButton nextButton = new JButton("Next");
+    JButton backButton;
 
     String currentAnswer = "";
 
@@ -34,6 +35,11 @@ public class quizScreen extends JFrame {
         panel.setLayout(layout);
         questionLabel.setFont(new Font("Times New Roman", Font.BOLD, 36));
         panel.setBackground(Color.BLUE);
+        backButton = new JButton("Go to Main Menu");
+        backButton.setBounds(250, 100, 1000, 30);
+        backButton.addActionListener(e->{
+            this.dispose();
+        });
 
         // Load questions from database
         try {
@@ -69,6 +75,7 @@ public class quizScreen extends JFrame {
         panel.add(opt4);
         panel.add(scoreLabel);
         panel.add(nextButton);
+        panel.add(backButton);
 
         group.add(opt1);
         group.add(opt2);
