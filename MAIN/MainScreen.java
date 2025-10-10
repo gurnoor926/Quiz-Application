@@ -17,20 +17,29 @@ public class MainScreen extends JFrame implements ActionListener {
         JPanel quizPanel = new JPanel();
         JLabel title = new JLabel("Welcome " + UserName+" "+id);
         JLabel subTitle = new JLabel("Let's Paly a Quiz");
+        //bt images
         ImageIcon geo =  new ImageIcon("../images/geography.png");
+        ImageIcon history = new ImageIcon("../images/history.jpeg");
+        ImageIcon social = new ImageIcon("../images/socialSci.jpg");
+        ImageIcon english = new ImageIcon("../images/eng.jpeg");
+        ImageIcon science = new ImageIcon("../images/sci.jpg");
+        ImageIcon CS = new ImageIcon("../images/cs.jpg");
+        ImageIcon GenK = new ImageIcon("../images/gk.jpeg");
+        ImageIcon code = new ImageIcon("../images/programming.jpg");
+        ImageIcon riddles = new ImageIcon("../images/riddles.jpeg");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        title.setFont(new Font("Times New Roman", Font.BOLD, 36));
+        title.setFont(new Font("Roboto", Font.BOLD, 36));
         subTitle.setFont(new Font("Arial",Font.BOLD,22));
         ImageIcon icon = new ImageIcon("../images/APP_icon.png");
-        GeographyBtn = new JButton("GEOGRAPHY QUIZ",geo);
-        computerScienceBtn = new JButton("Computer Science QUIZ");
-        ProgrammingBtn = new JButton("Programming QUIZ");
-        RiddlesBtn = new JButton("Riddles QUIZ");
-        EnglishBtn = new JButton("English QUIZ");
-        HistoryBtn = new JButton("History QUIZ");
-        ScienceBtn = new JButton("Science QUIZ");
-        SocialScienceBtn = new JButton("Social Science QUIZ");
-        GKBtn = new JButton("General Knoowledge QUIZ");
+        GeographyBtn = new JButton("GEOGRAPHY",geo);
+        computerScienceBtn = new JButton("Computer Science",CS);
+        ProgrammingBtn = new JButton("Programming",code);
+        RiddlesBtn = new JButton("Riddles", riddles);
+        EnglishBtn = new JButton("English",english);
+        HistoryBtn = new JButton("History",history);
+        ScienceBtn = new JButton("Science",science);
+        SocialScienceBtn = new JButton("Social Science",social);
+        GKBtn = new JButton("General Knowledge",GenK);
         SpringLayout Layout = new SpringLayout();
         //Labels Layout
         //title
@@ -40,42 +49,82 @@ public class MainScreen extends JFrame implements ActionListener {
         Layout.putConstraint(SpringLayout.NORTH, subTitle, 15, SpringLayout.SOUTH, title);
         Layout.putConstraint(SpringLayout.WEST, subTitle, 690, SpringLayout.WEST, contentPane);
         // quiz panel
-        Layout.putConstraint(SpringLayout.NORTH, quizPanel, 80, SpringLayout.SOUTH, subTitle);
-        Layout.putConstraint(SpringLayout.WEST, quizPanel, 350, SpringLayout.WEST, contentPane);
+        Layout.putConstraint(SpringLayout.NORTH, quizPanel, 100, SpringLayout.SOUTH, subTitle);
+        Layout.putConstraint(SpringLayout.WEST, quizPanel, 290, SpringLayout.WEST, contentPane);
         // btn dimensions
-        GeographyBtn.setPreferredSize(new Dimension(200,95));
-        HistoryBtn.setPreferredSize(new Dimension(200,95));
-        ScienceBtn.setPreferredSize(new Dimension(200,95));
-        computerScienceBtn.setPreferredSize(new Dimension(200,95));
-        ProgrammingBtn.setPreferredSize(new Dimension(200,95));
-        RiddlesBtn.setPreferredSize(new Dimension(200,95));
-        GKBtn.setPreferredSize(new Dimension(200,95));
-        EnglishBtn.setPreferredSize(new Dimension(200,95));
-        SocialScienceBtn.setPreferredSize(new Dimension(200,95));
+        GeographyBtn.setPreferredSize(new Dimension(220,100));
+        HistoryBtn.setPreferredSize(new Dimension(220,100));
+        ScienceBtn.setPreferredSize(new Dimension(220,100));
+        computerScienceBtn.setPreferredSize(new Dimension(220,100));
+        ProgrammingBtn.setPreferredSize(new Dimension(220,100));
+        RiddlesBtn.setPreferredSize(new Dimension(220,100));
+        GKBtn.setPreferredSize(new Dimension(220,100));
+        EnglishBtn.setPreferredSize(new Dimension(220,100));
+        SocialScienceBtn.setPreferredSize(new Dimension(220,100));
         // btn Font/image
         // geo
         GeographyBtn.setHorizontalTextPosition(SwingConstants.CENTER);
         GeographyBtn.setVerticalTextPosition(SwingConstants.CENTER);
-        GeographyBtn.setFont(new Font("Times New Roman", Font.BOLD, 15));
+        GeographyBtn.setFont(new Font("Roboto", Font.BOLD, 20));
         GeographyBtn.setForeground(Color.WHITE); // text color
         GeographyBtn.setBorderPainted(false);
         GeographyBtn.setContentAreaFilled(false);
         //his
-        HistoryBtn.setFont(new Font("Times New Roman",Font.BOLD,15));
+        HistoryBtn.setHorizontalTextPosition(SwingConstants.CENTER);
+        HistoryBtn.setVerticalTextPosition(SwingConstants.CENTER);
+        HistoryBtn.setFont(new Font("Roboto",Font.BOLD,20));
+        HistoryBtn.setForeground(Color.WHITE);
+        HistoryBtn.setBorderPainted(false);
+        HistoryBtn.setContentAreaFilled(false);
         //cs
-        computerScienceBtn.setFont(new Font("Times New Roman",Font.BOLD,15));
+        computerScienceBtn.setHorizontalTextPosition(SwingConstants.CENTER);
+        computerScienceBtn.setVerticalTextPosition(SwingConstants.CENTER);
+        computerScienceBtn.setFont(new Font("Roboto",Font.BOLD,20));
+        computerScienceBtn.setForeground(Color.WHITE);
+        computerScienceBtn.setBorderPainted(false);
+        computerScienceBtn.setContentAreaFilled(false);
         //pro
-        ProgrammingBtn.setFont(new Font("Times New Roman",Font.BOLD,15));
+        ProgrammingBtn.setHorizontalTextPosition(SwingConstants.CENTER);
+        ProgrammingBtn.setVerticalTextPosition(SwingConstants.CENTER);
+        ProgrammingBtn.setFont(new Font("Roboto",Font.BOLD,20));
+        ProgrammingBtn.setForeground(Color.WHITE);
+        ProgrammingBtn.setBorderPainted(false);
+        ProgrammingBtn.setContentAreaFilled(false);
         //sci
-        ScienceBtn.setFont(new Font("Times New Roman",Font.BOLD,15));
+        ScienceBtn.setHorizontalTextPosition(SwingConstants.CENTER);
+        ScienceBtn.setVerticalTextPosition(SwingConstants.CENTER);
+        ScienceBtn.setFont(new Font("Roboto",Font.BOLD,20));
+        ScienceBtn.setForeground(Color.WHITE);
+        ScienceBtn.setBorderPainted(false);
+        ScienceBtn.setContentAreaFilled(false);
         //gk
-        GKBtn.setFont(new Font("Times New Roman",Font.BOLD,15));
+        GKBtn.setHorizontalTextPosition(SwingConstants.CENTER);
+        GKBtn.setVerticalTextPosition(SwingConstants.CENTER);
+        GKBtn.setFont(new Font("Roboto",Font.BOLD,20));
+        GKBtn.setForeground(Color.WHITE);
+        GKBtn.setBorderPainted(false);
+        GKBtn.setContentAreaFilled(false);
         //riddles
-        RiddlesBtn.setFont(new Font("Times New Roman",Font.BOLD,15));
+        RiddlesBtn.setHorizontalTextPosition(SwingConstants.CENTER);
+        RiddlesBtn.setVerticalTextPosition(SwingConstants.CENTER);
+        RiddlesBtn.setFont(new Font("Roboto",Font.BOLD,20));
+        RiddlesBtn.setForeground(Color.WHITE);
+        RiddlesBtn.setBorderPainted(false);
+        RiddlesBtn.setContentAreaFilled(false);
         //eng
-        EnglishBtn.setFont(new Font("Times New Roman",Font.BOLD,15));
+        EnglishBtn.setHorizontalTextPosition(SwingConstants.CENTER);
+        EnglishBtn.setVerticalTextPosition(SwingConstants.CENTER);
+        EnglishBtn.setFont(new Font("Roboto",Font.BOLD,20));
+        EnglishBtn.setForeground(Color.WHITE);
+        EnglishBtn.setBorderPainted(false);
+        EnglishBtn.setContentAreaFilled(false);
         //social
-        SocialScienceBtn.setFont(new Font("Times New Roman",Font.BOLD,15));
+        SocialScienceBtn.setHorizontalTextPosition(SwingConstants.CENTER);
+        SocialScienceBtn.setVerticalTextPosition(SwingConstants.CENTER);
+        SocialScienceBtn.setFont(new Font("Roboto",Font.BOLD,20));
+        SocialScienceBtn.setForeground(Color.WHITE);
+        SocialScienceBtn.setBorderPainted(false);
+        SocialScienceBtn.setContentAreaFilled(false);
         // btn events
         GeographyBtn.addActionListener(this);
         ProgrammingBtn.addActionListener(this);
@@ -86,7 +135,8 @@ public class MainScreen extends JFrame implements ActionListener {
         computerScienceBtn.addActionListener(this);
         EnglishBtn.addActionListener(this);
         SocialScienceBtn.addActionListener(this);
-        quizPanel.setLayout(new GridLayout(0,4,10,10));
+        // content adding
+        quizPanel.setLayout(new GridLayout(0,4,35,55));
         contentPane.setLayout(Layout);
         setContentPane(contentPane);
         contentPane.add(quizPanel);
