@@ -12,10 +12,10 @@ public class MainScreen extends JFrame implements ActionListener {
     private JButton ScienceBtn;
     private JButton SocialScienceBtn;
     private JButton GKBtn;
-    public MainScreen(String UserName, int id) {
+    public MainScreen(String UserName) {
         JPanel contentPane = new JPanel();
         JPanel quizPanel = new JPanel();
-        JLabel title = new JLabel("Welcome " + UserName+" "+id);
+        JLabel title = new JLabel("Welcome " + UserName);
         JLabel subTitle = new JLabel("Let's Paly a Quiz");
         //bt images
         ImageIcon geo =  new ImageIcon("../images/geography.png");

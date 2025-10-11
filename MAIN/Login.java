@@ -5,13 +5,15 @@ public class Login extends JFrame {
     String Name;
     String Password;
     int id;
+    private Quiz quizRef;
     String url = "jdbc:postgresql://localhost:5432/quizDb";
     String user = "postgres";
     String pass = "Manak6142";
     Connection con;
     Statement stmt;
     ResultSet rs;
-    Login(){
+    Login(Quiz quiz){
+        this.quizRef = quiz;
         setTitle("QUIZ APPLICATION");
         JPanel contentPane = new JPanel(){
             protected void paintComponent(Graphics g){
@@ -28,11 +30,11 @@ public class Login extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         JLabel Login = new JLabel("Login");
         Login.setFont(new Font("Times New Roman", Font.BOLD, 30));
-        JLabel name = new JLabel("Name:");
-        name.setFont(new Font("Times New Roman", Font.BOLD, 18));
+        JLabel Email = new JLabel("Email:");
+        Email.setFont(new Font("Times New Roman", Font.BOLD, 18));
         JLabel password = new JLabel("Password:");
         password.setFont(new Font("Times New Roman", Font.BOLD, 18));
-        JTextField nameField = new JTextField(15);
+        JTextField EmailField = new JTextField(15);
         JPasswordField passwordField = new JPasswordField(15);
         passwordField.setEchoChar('*');
         //Login Button
@@ -40,19 +42,20 @@ public class Login extends JFrame {
         loginButton.setFont(new Font("Times New Roman", Font.BOLD, 18));
         loginButton.setBackground(Color.decode("#5ECC0A"));
         loginButton.addActionListener(e->{
-            String UserName = nameField.getText();
+            String userEmail = EmailField.getText();
             String Password = String.valueOf(passwordField.getPassword());
             try{
                 Class.forName("org.postgresql.Driver");
                 con = DriverManager.getConnection(url,user,pass);
-                String sql = "SELECT * FROM users WHERE username=? AND password=?";
+                String sql = "SELECT * FROM users WHERE email=? AND password=?";
                 PreparedStatement pstmt = con.prepareStatement(sql);
-                pstmt.setString(1, UserName);
+                pstmt.setString(1, userEmail);
                 pstmt.setString(2, Password);
                 rs = pstmt.executeQuery();
                 if(rs.next()){
                     id = rs.getInt("id");
-                    new MainScreen(UserName,id);
+                    Name = rs.getString("username");
+                    quizRef.setIsLoggedIn(Name);
                     con.close();
                     this.dispose();
                 }
@@ -64,11 +67,11 @@ public class Login extends JFrame {
             }
 
         });
-        panel.setBounds(600,200,400,300);
+        panel.setBounds(300,100,400,300);
         panel.setBackground(Color.decode("#8DABBA"));
         panel.add(Login);
-        panel.add(name);
-        panel.add(nameField);
+        panel.add(Email);
+        panel.add(EmailField);
         panel.add(password);
         panel.add(passwordField);
         panel.add(loginButton);
@@ -78,28 +81,29 @@ public class Login extends JFrame {
         Layout.putConstraint(SpringLayout.NORTH,Login,20,SpringLayout.NORTH,panel);
         Layout.putConstraint(SpringLayout.WEST,Login,160,SpringLayout.WEST,panel);
         //name
-        Layout.putConstraint(SpringLayout.NORTH,name,50,SpringLayout.SOUTH,Login);
-        Layout.putConstraint(SpringLayout.WEST,name,100,SpringLayout.WEST,panel);
+        Layout.putConstraint(SpringLayout.NORTH,Email,50,SpringLayout.SOUTH,Login);
+        Layout.putConstraint(SpringLayout.WEST,Email,100,SpringLayout.WEST,panel);
         //password
-        Layout.putConstraint(SpringLayout.NORTH,password,30,SpringLayout.SOUTH,name);
+        Layout.putConstraint(SpringLayout.NORTH,password,30,SpringLayout.SOUTH,Email);
         Layout.putConstraint(SpringLayout.WEST,password,70,SpringLayout.WEST,panel);
         //Namefield
-        Layout.putConstraint(SpringLayout.NORTH,nameField,50,SpringLayout.SOUTH,Login);
-        Layout.putConstraint(SpringLayout.WEST,nameField,20,SpringLayout.EAST,name);
+        Layout.putConstraint(SpringLayout.NORTH,EmailField,50,SpringLayout.SOUTH,Login);
+        Layout.putConstraint(SpringLayout.WEST,EmailField,20,SpringLayout.EAST,Email);
         //password field
-        Layout.putConstraint(SpringLayout.NORTH,passwordField,30,SpringLayout.SOUTH,nameField);
+        Layout.putConstraint(SpringLayout.NORTH,passwordField,30,SpringLayout.SOUTH,EmailField);
         Layout.putConstraint(SpringLayout.WEST,passwordField,20,SpringLayout.EAST,password);
         //Login Button
         Layout.putConstraint(SpringLayout.NORTH,loginButton,55,SpringLayout.SOUTH,passwordField);
         Layout.putConstraint(SpringLayout.WEST,loginButton,160,SpringLayout.WEST,panel);
         contentPane.add(panel);
         setIconImage(icon.getImage());
-        setSize(2400,1000);
+        setSize(1000,600);
+        setLocationRelativeTo(null);
         setLayout(null);
         setVisible(true);
     }
-    public static void main(String[] args) {
-        new Login();
+    //public static void main(String[] args) {
+      //  new Login();
 
-    }
+    //}
 }

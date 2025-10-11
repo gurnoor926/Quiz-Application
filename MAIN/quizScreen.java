@@ -31,10 +31,9 @@ public class quizScreen extends JFrame {
         setSize(2400, 1000);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         JPanel panel = new JPanel();
-        panel.setBounds(250, 100, 1000, 300);
+        panel.setBounds(250, 100, 2150, 300);
         panel.setLayout(layout);
         questionLabel.setFont(new Font("Times New Roman", Font.BOLD, 36));
-        panel.setBackground(Color.BLUE);
         backButton = new JButton("Go to Main Menu");
         backButton.setBounds(250, 100, 1000, 30);
         backButton.addActionListener(e->{
