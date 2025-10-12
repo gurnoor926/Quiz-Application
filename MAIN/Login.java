@@ -27,7 +27,7 @@ public class Login extends JFrame {
         setContentPane(contentPane);
         ImageIcon icon = new ImageIcon("../images/APP_icon.png");
         SpringLayout Layout = new SpringLayout();
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         JLabel Login = new JLabel("Login");
         Login.setFont(new Font("Times New Roman", Font.BOLD, 30));
         JLabel Email = new JLabel("Email:");
@@ -41,9 +41,14 @@ public class Login extends JFrame {
         JButton loginButton = new JButton("Login");
         loginButton.setFont(new Font("Times New Roman", Font.BOLD, 18));
         loginButton.setBackground(Color.decode("#5ECC0A"));
+        loginButton.setBorderPainted(false);
+        loginButton.setFocusPainted(false);
         loginButton.addActionListener(e->{
             String userEmail = EmailField.getText();
             String Password = String.valueOf(passwordField.getPassword());
+            if(userEmail.equals("") && Password.equals("")){
+                JOptionPane.showMessageDialog(null,"email and password are mandatory");
+            }else{
             try{
                 Class.forName("org.postgresql.Driver");
                 con = DriverManager.getConnection(url,user,pass);
@@ -64,6 +69,7 @@ public class Login extends JFrame {
                 }
             } catch (Exception ex) {
                 ex.printStackTrace();
+            }
             }
 
         });

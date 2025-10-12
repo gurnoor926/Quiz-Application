@@ -74,7 +74,7 @@ public class Quiz extends JFrame{
         // actions button
         btnPlay.addActionListener(e ->{
             if(isLoggedIn==true){
-                new MainScreen(username);
+                new MainScreen(username,this);
                 setVisible(false);
             }else {
                 JOptionPane.showMessageDialog(Quiz.this, "Please Login First");

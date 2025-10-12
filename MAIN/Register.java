@@ -60,8 +60,38 @@ public class Register extends JFrame {
             String emailText = txtEmail.getText();
             String passwordText = String.valueOf(txtPassword.getPassword());
 
+            // Check if fields are empty
             if (username.isEmpty() || emailText.isEmpty() || passwordText.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "All fields are required!");
+                return;
+            }
+
+// Username validation
+            if (Character.isDigit(username.charAt(0))) {
+                JOptionPane.showMessageDialog(this, "Username cannot start with a number!");
+                return;
+            }
+
+            if (username.contains(" ")) {
+                JOptionPane.showMessageDialog(this, "Username cannot contain spaces!");
+                return;
+            }
+
+// Email validation
+            if (!emailText.contains("@") || !emailText.contains(".")) {
+                JOptionPane.showMessageDialog(this, "Please enter a valid email address!");
+                return;
+            }
+
+// More strict email validation
+            if (!emailText.matches("^[\\w._%+-]+@[\\w.-]+\\.[a-zA-Z]{2,}$")) {
+                JOptionPane.showMessageDialog(this, "Invalid email format!");
+                return;
+            }
+
+// Password validation
+            if (passwordText.length() < 6) {
+                JOptionPane.showMessageDialog(this, "Password must be at least 6 characters long!");
                 return;
             }
 
@@ -144,6 +174,6 @@ public class Register extends JFrame {
         setSize(1000, 600);
         setLocationRelativeTo(null);
         setVisible(true);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
 }

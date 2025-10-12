@@ -12,11 +12,14 @@ public class MainScreen extends JFrame implements ActionListener {
     private JButton ScienceBtn;
     private JButton SocialScienceBtn;
     private JButton GKBtn;
-    public MainScreen(String UserName) {
+    private JButton goBackBtn;
+    private Quiz quizRef;
+    public MainScreen(String UserName, Quiz quiz) {
+        this.quizRef = quiz;
         JPanel contentPane = new JPanel();
         JPanel quizPanel = new JPanel();
         JLabel title = new JLabel("Welcome " + UserName);
-        JLabel subTitle = new JLabel("Let's Paly a Quiz");
+        JLabel subTitle = new JLabel("Let's Play a Quiz");
         //bt images
         ImageIcon geo =  new ImageIcon("../images/geography.png");
         ImageIcon history = new ImageIcon("../images/history.jpeg");
@@ -40,6 +43,7 @@ public class MainScreen extends JFrame implements ActionListener {
         ScienceBtn = new JButton("Science",science);
         SocialScienceBtn = new JButton("Social Science",social);
         GKBtn = new JButton("General Knowledge",GenK);
+        goBackBtn = new JButton("⮐ BACK");
         SpringLayout Layout = new SpringLayout();
         //Labels Layout
         //title
@@ -51,6 +55,9 @@ public class MainScreen extends JFrame implements ActionListener {
         // quiz panel
         Layout.putConstraint(SpringLayout.NORTH, quizPanel, 100, SpringLayout.SOUTH, subTitle);
         Layout.putConstraint(SpringLayout.WEST, quizPanel, 290, SpringLayout.WEST, contentPane);
+        // go back button
+        Layout.putConstraint(SpringLayout.NORTH,goBackBtn,15, SpringLayout.NORTH, contentPane);
+        Layout.putConstraint(SpringLayout.WEST, goBackBtn, 15, SpringLayout.WEST, contentPane);
         // btn dimensions
         GeographyBtn.setPreferredSize(new Dimension(220,100));
         HistoryBtn.setPreferredSize(new Dimension(220,100));
@@ -61,6 +68,7 @@ public class MainScreen extends JFrame implements ActionListener {
         GKBtn.setPreferredSize(new Dimension(220,100));
         EnglishBtn.setPreferredSize(new Dimension(220,100));
         SocialScienceBtn.setPreferredSize(new Dimension(220,100));
+        goBackBtn.setPreferredSize(new Dimension(100,90));
         // btn Font/image
         // geo
         GeographyBtn.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -125,6 +133,12 @@ public class MainScreen extends JFrame implements ActionListener {
         SocialScienceBtn.setForeground(Color.WHITE);
         SocialScienceBtn.setBorderPainted(false);
         SocialScienceBtn.setContentAreaFilled(false);
+        //go back
+        goBackBtn.setFont(new Font("Roboto", Font.BOLD, 15));
+        goBackBtn.setBorderPainted(false);
+        goBackBtn.setFocusPainted(false);
+        goBackBtn.setContentAreaFilled(false);
+        goBackBtn.setOpaque(false);
         // btn events
         GeographyBtn.addActionListener(this);
         ProgrammingBtn.addActionListener(this);
@@ -135,10 +149,15 @@ public class MainScreen extends JFrame implements ActionListener {
         computerScienceBtn.addActionListener(this);
         EnglishBtn.addActionListener(this);
         SocialScienceBtn.addActionListener(this);
+        goBackBtn.addActionListener(e->{
+            quizRef.setVisible(true);
+            this.dispose();
+        });
         // content adding
         quizPanel.setLayout(new GridLayout(0,4,35,55));
         contentPane.setLayout(Layout);
         setContentPane(contentPane);
+        contentPane.add(goBackBtn);
         contentPane.add(quizPanel);
         quizPanel.add(computerScienceBtn);
         quizPanel.add(ProgrammingBtn);
@@ -180,6 +199,7 @@ public class MainScreen extends JFrame implements ActionListener {
         } else if (src == SocialScienceBtn) {
             quizType = "social science";
         }
-        new quizScreen(quizType);
+        new quizScreen(quizType,this);
+        this.setVisible(false);
     }
 }

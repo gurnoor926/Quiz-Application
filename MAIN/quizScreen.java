@@ -19,27 +19,35 @@ public class quizScreen extends JFrame {
     JRadioButton opt3 = new JRadioButton();
     JRadioButton opt4 = new JRadioButton();
     JLabel scoreLabel = new JLabel();
-    SpringLayout layout = new SpringLayout();
+    SpringLayout QuizLayout = new SpringLayout();
+    SpringLayout NorthLayout = new SpringLayout();
+    SpringLayout ContentPaneLayout = new SpringLayout();
     ButtonGroup group = new ButtonGroup();
-    JButton nextButton = new JButton("Next");
+    JButton nextButton = new JButton("⎘");
     JButton backButton;
-
+    JPanel contentPane;
     String currentAnswer = "";
-
-    quizScreen(String quizType) {
+    private MainScreen mainScreenRef;
+    quizScreen(String quizType, MainScreen mainScreen) {
+        this.mainScreenRef = mainScreen;
         setTitle("Quiz");
         setSize(2400, 1000);
+        contentPane = new JPanel();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        JPanel panel = new JPanel();
-        panel.setBounds(250, 100, 2150, 300);
-        panel.setLayout(layout);
-        questionLabel.setFont(new Font("Times New Roman", Font.BOLD, 36));
-        backButton = new JButton("Go to Main Menu");
-        backButton.setBounds(250, 100, 1000, 30);
+        JPanel QuizPanel = new JPanel();
+        QuizPanel.setPreferredSize(new Dimension(1090, 500));
+        JPanel NorthPanel = new JPanel();
+        NorthPanel.setPreferredSize(new Dimension(2400,100));
+        NorthPanel.setLayout(NorthLayout);
+        QuizPanel.setLayout(QuizLayout);
+        questionLabel.setFont(new Font("Roboto", Font.BOLD, 36));
+        backButton = new JButton("⮐ BACK");
         backButton.addActionListener(e->{
+            mainScreenRef.setVisible(true);
             this.dispose();
         });
-
+        contentPane.setLayout(ContentPaneLayout);
+        setContentPane(contentPane);
         // Load questions from database
         try {
             Class.forName("org.postgresql.Driver");
@@ -66,20 +74,42 @@ public class quizScreen extends JFrame {
             dispose();
             return;
         }
+        // options font size
+        opt1.setFont(new Font("Roboto", Font.BOLD, 15));
+        opt2.setFont(new Font("Roboto", Font.BOLD, 15));
+        opt3.setFont(new Font("Roboto", Font.BOLD, 15));
+        opt4.setFont(new Font("Roboto", Font.BOLD, 15));
 
-        panel.add(questionLabel);
-        panel.add(opt1);
-        panel.add(opt2);
-        panel.add(opt3);
-        panel.add(opt4);
-        panel.add(scoreLabel);
-        panel.add(nextButton);
-        panel.add(backButton);
+        // score label font
+        scoreLabel.setFont(new Font("Roboto", Font.BOLD, 15));
+
+        //back button
+        backButton.setFont(new Font("Roboto", Font.BOLD, 15));
+        backButton.setPreferredSize(new Dimension(100,90));
+        backButton.setBorderPainted(false);
+        backButton.setFocusPainted(false);
+        backButton.setContentAreaFilled(false);
+        backButton.setOpaque(false);
+        // next button
+        nextButton.setFont(new Font("Roboto", Font.BOLD, 25));
+        nextButton.setBorderPainted(false);
+        nextButton.setFocusPainted(false);
+        nextButton.setBackground(Color.decode("#42E36D"));
+        nextButton.setForeground(Color.white);
+        QuizPanel.add(questionLabel);
+        QuizPanel.add(opt1);
+        QuizPanel.add(opt2);
+        QuizPanel.add(opt3);
+        QuizPanel.add(opt4);
+        QuizPanel.add(nextButton);
 
         group.add(opt1);
         group.add(opt2);
         group.add(opt3);
         group.add(opt4);
+
+        NorthPanel.add(backButton);
+        NorthPanel.add(scoreLabel);
 
         showQuestion();
 
@@ -91,38 +121,81 @@ public class quizScreen extends JFrame {
             } else {
                 JOptionPane.showMessageDialog(null, "Quiz Over! Score: " + score + "/" + totalQuestions);
                 closeResources();
+                mainScreenRef.setVisible(true);
                 dispose(); // close quiz window
             }
         });
 
         // Layout constraints
+        // Quiz Layout quiz panel
         // Question
-        layout.putConstraint(SpringLayout.NORTH, questionLabel, 20, SpringLayout.NORTH, panel);
-        layout.putConstraint(SpringLayout.WEST, questionLabel, 15, SpringLayout.WEST, panel);
+        QuizLayout.putConstraint(SpringLayout.NORTH, questionLabel, 20, SpringLayout.NORTH, QuizPanel);
+        QuizLayout.putConstraint(SpringLayout.WEST, questionLabel, 15, SpringLayout.WEST, QuizPanel);
 
         // Options
         // opt1
-        layout.putConstraint(SpringLayout.WEST, opt1, 180, SpringLayout.WEST, panel);
-        layout.putConstraint(SpringLayout.NORTH, opt1, 20, SpringLayout.SOUTH, questionLabel);
+        QuizLayout.putConstraint(SpringLayout.WEST, opt1, 55, SpringLayout.WEST, QuizPanel);
+        QuizLayout.putConstraint(SpringLayout.NORTH, opt1, 20, SpringLayout.SOUTH, questionLabel);
         // opt2
-        layout.putConstraint(SpringLayout.WEST, opt2, 20, SpringLayout.EAST, opt1);
-        layout.putConstraint(SpringLayout.NORTH, opt2, 20, SpringLayout.SOUTH, questionLabel);
+        QuizLayout.putConstraint(SpringLayout.WEST, opt2, 20, SpringLayout.EAST, opt1);
+        QuizLayout.putConstraint(SpringLayout.NORTH, opt2, 20, SpringLayout.SOUTH, questionLabel);
         // opt3
-        layout.putConstraint(SpringLayout.WEST, opt3, 180, SpringLayout.WEST, panel);
-        layout.putConstraint(SpringLayout.NORTH, opt3, 20, SpringLayout.SOUTH, opt1);
+        QuizLayout.putConstraint(SpringLayout.WEST, opt3, 55, SpringLayout.WEST, QuizPanel);
+        QuizLayout.putConstraint(SpringLayout.NORTH, opt3, 20, SpringLayout.SOUTH, opt1);
         // opt4
-        layout.putConstraint(SpringLayout.WEST, opt4, 20, SpringLayout.EAST, opt3);
-        layout.putConstraint(SpringLayout.NORTH, opt4, 20, SpringLayout.SOUTH, opt2);
-        // Score label
-        layout.putConstraint(SpringLayout.WEST, scoreLabel, 15, SpringLayout.WEST, panel);
-        layout.putConstraint(SpringLayout.NORTH, scoreLabel, 20, SpringLayout.SOUTH, opt3);
+        QuizLayout.putConstraint(SpringLayout.WEST, opt4, 20, SpringLayout.EAST, opt3);
+        QuizLayout.putConstraint(SpringLayout.NORTH, opt4, 20, SpringLayout.SOUTH, opt2);
         // Next button
-        layout.putConstraint(SpringLayout.WEST, nextButton, 250, SpringLayout.WEST, panel);
-        layout.putConstraint(SpringLayout.NORTH, nextButton, 35, SpringLayout.SOUTH, opt3);
+        QuizLayout.putConstraint(SpringLayout.WEST, nextButton, 800, SpringLayout.WEST, QuizPanel);
+        QuizLayout.putConstraint(SpringLayout.NORTH, nextButton, 35, SpringLayout.SOUTH, opt3);
 
-        add(panel);
-        setLayout(null);
+        // North Panel
+        // score
+        NorthLayout.putConstraint(SpringLayout.EAST, scoreLabel, -25, SpringLayout.EAST, NorthPanel);
+        NorthLayout.putConstraint(SpringLayout.NORTH, scoreLabel, 15, SpringLayout.NORTH, NorthPanel);
+        // back button
+        NorthLayout.putConstraint(SpringLayout.WEST, backButton, 2, SpringLayout.WEST, NorthPanel);
+        NorthLayout.putConstraint(SpringLayout.NORTH, backButton, 15, SpringLayout.NORTH, NorthPanel);
+
+        // content pane layout
+        //quiz panel
+        ContentPaneLayout.putConstraint(SpringLayout.WEST, QuizPanel, 335, SpringLayout.WEST,contentPane);
+        ContentPaneLayout.putConstraint(SpringLayout.NORTH,  QuizPanel, 100, SpringLayout.SOUTH, NorthPanel);
+        // north panel
+        ContentPaneLayout.putConstraint(SpringLayout.WEST, NorthPanel, 0, SpringLayout.WEST, contentPane);
+        ContentPaneLayout.putConstraint(SpringLayout.NORTH, NorthPanel, 0, SpringLayout.NORTH, contentPane);
+        ContentPaneLayout.putConstraint(SpringLayout.EAST, NorthPanel, 0, SpringLayout.EAST, contentPane);
+
+        contentPane.add(QuizPanel);
+        contentPane.add(NorthPanel);
         setVisible(true);
+    }
+
+    String wrapText(String text, int maxCharsPerLine) {
+        StringBuilder wrapped = new StringBuilder("<html>");
+        int length = text.length();
+        int start = 0;
+
+        while (start < length) {
+            int end = Math.min(start + maxCharsPerLine, length);
+
+            // Try to break at a space if possible
+            if (end < length) {
+                int lastSpace = text.lastIndexOf(' ', end);
+                if (lastSpace > start) {
+                    end = lastSpace;
+                }
+            }
+
+            wrapped.append(text.substring(start, end));
+            if (end < length) {
+                wrapped.append("<br>");
+            }
+            start = end + 1; // +1 to skip the space
+        }
+
+        wrapped.append("</html>");
+        return wrapped.toString();
     }
 
     void showQuestion() {
@@ -134,8 +207,7 @@ public class quizScreen extends JFrame {
                 String option3 = rs.getString("option_3");
                 String option4 = rs.getString("option_4");
                 currentAnswer = rs.getString("answer");
-
-                questionLabel.setText((currentQuestion + 1) + ". " + question);
+                questionLabel.setText(wrapText((currentQuestion + 1) + ". " + question, 60));
                 opt1.setText(option1);
                 opt2.setText(option2);
                 opt3.setText(option3);
