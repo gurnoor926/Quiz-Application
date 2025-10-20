@@ -78,7 +78,7 @@ public class MainScreen extends JFrame implements ActionListener {
         EnglishBtn.setPreferredSize(new Dimension(220,100));
         SocialScienceBtn.setPreferredSize(new Dimension(220,100));
         goBackBtn.setPreferredSize(new Dimension(100,90));
-        LeaderboardBtn.setPreferredSize(new Dimension(100,20));
+        LeaderboardBtn.setPreferredSize(new Dimension(150,20));
         // btn Font/image
         // geo
         GeographyBtn.setHorizontalTextPosition(SwingConstants.CENTER);
