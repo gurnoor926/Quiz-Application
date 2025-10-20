@@ -10,7 +10,7 @@ public class Quiz extends JFrame{
     SpringLayout springLayout;
     ImageIcon icon;
     String username;
-    String Id;
+    int Id;
     private Boolean isLoggedIn = false;
     Quiz() {
         setTitle("Quiz");
@@ -74,7 +74,7 @@ public class Quiz extends JFrame{
         // actions button
         btnPlay.addActionListener(e ->{
             if(isLoggedIn==true){
-                new MainScreen(username,this);
+                new MainScreen(username,this,Id);
                 setVisible(false);
             }else {
                 JOptionPane.showMessageDialog(Quiz.this, "Please Login First");
@@ -94,9 +94,10 @@ public class Quiz extends JFrame{
     public void openRegisterWindow(){
         new Register(this);
     }
-    public void setIsLoggedIn(String username){
+    public void setIsLoggedIn(String username ,  int id){
         isLoggedIn = true;
         this.username = username;
+        this.Id = id;
         contentPane.remove(btnLogin);
         contentPane.remove(btnRegister);
         contentPane.revalidate();

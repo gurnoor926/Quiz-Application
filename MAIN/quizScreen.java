@@ -12,6 +12,9 @@ public class quizScreen extends JFrame {
     String pass = "Manak6142";
     Connection con;
     ResultSet rs;
+    String quizType; // Store quiz type
+    String username; // Store username
+    int userId; // Store user ID
 
     JLabel questionLabel = new JLabel();
     JRadioButton opt1 = new JRadioButton();
@@ -28,8 +31,13 @@ public class quizScreen extends JFrame {
     JPanel contentPane;
     String currentAnswer = "";
     private MainScreen mainScreenRef;
-    quizScreen(String quizType, MainScreen mainScreen) {
+
+    quizScreen(String quizType, MainScreen mainScreen, String username, int userId) {
         this.mainScreenRef = mainScreen;
+        this.quizType = quizType;
+        this.username = username;
+        this.userId = userId;
+
         setTitle("Quiz");
         setSize(2400, 1000);
         contentPane = new JPanel();
@@ -119,6 +127,8 @@ public class quizScreen extends JFrame {
             if (currentQuestion < totalQuestions) {
                 showQuestion();
             } else {
+                // Save score to leaderboard
+                saveScoreToLeaderboard();
                 JOptionPane.showMessageDialog(null, "Quiz Over! Score: " + score + "/" + totalQuestions);
                 closeResources();
                 mainScreenRef.setVisible(true);
@@ -233,6 +243,57 @@ public class quizScreen extends JFrame {
         }
     }
 
+    void saveScoreToLeaderboard() {
+        Connection leaderboardCon = null;
+        try {
+            leaderboardCon = DriverManager.getConnection(url, user, pass);
+
+            // Check if user already has a score for this quiz type
+            String checkQuery = "SELECT score FROM leaderboard WHERE user_id = ? AND quiz_type = ?";
+            PreparedStatement checkStmt = leaderboardCon.prepareStatement(checkQuery);
+            checkStmt.setInt(1, userId);
+            checkStmt.setString(2, quizType);
+            ResultSet checkRs = checkStmt.executeQuery();
+
+            if (checkRs.next()) {
+                // User has existing score
+                int existingScore = checkRs.getInt("score");
+
+                if (score > existingScore) {
+                    // Update only if new score is higher
+                    String updateQuery = "UPDATE leaderboard SET score = ?, completed_at = CURRENT_TIMESTAMP WHERE user_id = ? AND quiz_type = ?";
+                    PreparedStatement updateStmt = leaderboardCon.prepareStatement(updateQuery);
+                    updateStmt.setInt(1, score);
+                    updateStmt.setInt(2, userId);
+                    updateStmt.setString(3, quizType);
+                    updateStmt.executeUpdate();
+                    System.out.println("Score updated! New high score: " + score);
+                } else {
+                    System.out.println("Existing score is higher. Not updating.");
+                }
+            } else {
+                // Insert new record
+                String insertQuery = "INSERT INTO leaderboard (user_id, username, quiz_type, score) VALUES (?, ?, ?, ?)";
+                PreparedStatement insertStmt = leaderboardCon.prepareStatement(insertQuery);
+                insertStmt.setInt(1, userId);
+                insertStmt.setString(2, username);
+                insertStmt.setString(3, quizType);
+                insertStmt.setInt(4, score);
+                insertStmt.executeUpdate();
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error saving score: " + e.getMessage());
+        } finally {
+            try {
+                if (leaderboardCon != null) leaderboardCon.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     void closeResources() {
         try {
             if (rs != null) rs.close();
@@ -240,4 +301,5 @@ public class quizScreen extends JFrame {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }}
+    }
+}

@@ -118,10 +118,10 @@ public class Register extends JFrame {
                     int rows = insertStmt.executeUpdate(); // execute insert
                     if (rows > 0) {
                         // Update Quiz screen
-                        if (quizRef != null) {
-                            quizRef.setIsLoggedIn(username); // remove login/register buttons
-                        }
-                        JOptionPane.showMessageDialog(this, "Registration successful!");
+                    //    if (quizRef != null) {
+                      //      quizRef.setIsLoggedIn(username); // remove login/register buttons
+                        //}
+                        JOptionPane.showMessageDialog(this, "Registration successful! Please Login Now");
                         this.dispose();
                     } else {
                         JOptionPane.showMessageDialog(this, "Registration failed!");

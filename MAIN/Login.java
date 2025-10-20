@@ -60,7 +60,7 @@ public class Login extends JFrame {
                 if(rs.next()){
                     id = rs.getInt("id");
                     Name = rs.getString("username");
-                    quizRef.setIsLoggedIn(Name);
+                    quizRef.setIsLoggedIn(Name,id);
                     con.close();
                     this.dispose();
                 }
